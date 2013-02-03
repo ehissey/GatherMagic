@@ -70,7 +70,7 @@
     <application
         android:label="@string/app_name"
         android:launchMode="singleTask"
-        android:theme="@style/CloudRecoTheme" >
+        android:theme="@style/CloudRecoTheme" android:icon="@drawable/ic_launcher">
 
         <!-- Splash Screen Activity -->
         <activity

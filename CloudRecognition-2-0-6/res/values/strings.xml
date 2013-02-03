@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CloudReco</string>
+    <string name="app_name">Gather Magic</string>
     <string name="activity_splash_title">CloudReco</string>
     <string name="activity_splash_subtitle">sample application</string>
     <string name="about_title">About</string>
