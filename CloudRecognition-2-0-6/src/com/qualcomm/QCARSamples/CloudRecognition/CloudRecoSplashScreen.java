@@ -39,7 +39,7 @@ public class CloudRecoSplashScreen extends Activity
             {
                 // Starts the About Screen Activity
                 startActivity(new Intent(CloudRecoSplashScreen.this,
-                        AboutScreen.class));
+                        CloudReco.class));
             }
         }, 2000L);
     }
