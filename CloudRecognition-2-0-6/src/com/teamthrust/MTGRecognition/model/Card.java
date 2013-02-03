@@ -11,14 +11,13 @@ import android.graphics.Bitmap;
 public class Card
 {
     private String title;
-    private String author;
-    private String ratingAvg;
-    private String ratingTotal;
-    private String priceList;
-    private String priceYour;
+    private String set;
     private String targetId;
     private Bitmap thumb;
     private String cardUrl;
+    private String lowPrice;
+    private String avgPrice;
+    private String highPrice;
 
 
     public Card()
@@ -26,7 +25,37 @@ public class Card
 
     }
 
-
+    public String getLowPrice()
+    {
+        return lowPrice;
+    }
+    
+    public String getAvgPrice()
+    {
+        return avgPrice;
+    }
+    
+    public String getHighPrice()
+    {
+        return highPrice;
+    }
+    
+    public void setLowPrice(String lowPrice)
+    {
+        this.lowPrice = lowPrice;
+    }
+    
+    public void setAvgPrice(String avgPrice)
+    {
+        this.avgPrice = avgPrice;
+    }
+    
+    public void setHighPrice(String highPrice)
+    {
+        this.highPrice = highPrice;
+    }
+    
+    
     public String getTitle()
     {
         return title;
@@ -39,65 +68,16 @@ public class Card
     }
 
 
-    public String getAuthor()
+    public String getSet()
     {
-        return author;
+        return set;
     }
 
 
-    public void setAuthor(String author)
+    public void setSet(String set)
     {
-        this.author = author;
+        this.set = set;
     }
-
-
-    public String getRatingAvg()
-    {
-        return ratingAvg;
-    }
-
-
-    public void setRatingAvg(String ratingAvg)
-    {
-        this.ratingAvg = ratingAvg;
-    }
-
-
-    public String getRatingTotal()
-    {
-        return ratingTotal;
-    }
-
-
-    public void setRatingTotal(String ratingTotal)
-    {
-        this.ratingTotal = ratingTotal;
-    }
-
-
-    public String getPriceList()
-    {
-        return priceList;
-    }
-
-
-    public void setPriceList(String priceList)
-    {
-        this.priceList = priceList;
-    }
-
-
-    public String getPriceYour()
-    {
-        return priceYour;
-    }
-
-
-    public void setPriceYour(String priceYour)
-    {
-        this.priceYour = priceYour;
-    }
-
 
     public String getTargetId()
     {

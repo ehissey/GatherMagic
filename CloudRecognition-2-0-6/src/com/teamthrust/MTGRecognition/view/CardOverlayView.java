@@ -17,7 +17,6 @@ import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -66,51 +65,36 @@ public class CardOverlayView extends RelativeLayout
 
 
     /** Sets Card Author in View */
-    public void setCardAuthor(String cardAuthor)
+    public void setCardSet(String cardSet)
     {
-        TextView tv = (TextView) findViewById(R.id.custom_view_author);
-        tv.setText(cardAuthor);
+        TextView tv = (TextView) findViewById(R.id.custom_view_set);
+        tv.setText(cardSet);
     }
 
 
     /** Sets Card Price in View */
-    public void setCardPrice(String cardPrice)
+    public void setCardLowPrice(String cardLowPrice)
     {
-        TextView tv = (TextView) findViewById(R.id.custom_view_price_old);
-        tv.setText(getContext().getString(R.string.string_$) + cardPrice);
+        TextView tv = (TextView) findViewById(R.id.custom_view_price_low);
+        tv.setText(getContext().getString(R.string.lowPrice) + " " + cardLowPrice);
     }
-
-
-    /** Sets Card Number of Ratings in View */
-    public void setCardRatingCount(String ratingCount)
+    
+    public void setCardAvgPrice(String cardAvgPrice)
     {
-        TextView tv = (TextView) findViewById(R.id.custom_view_rating_text);
-        tv.setText(getContext().getString(R.string.string_openParentheses)
-                + ratingCount + getContext().getString(R.string.string_ratings)
-                + getContext().getString(R.string.string_closeParentheses));
+        TextView tv = (TextView) findViewById(R.id.custom_view_price_avg);
+        tv.setText(getContext().getString(R.string.avgPrice) + " " + cardAvgPrice);
     }
-
-
-    /** Sets Card Special Price in View */
-    public void setYourPrice(String yourPrice)
+    
+    public void setCardHighPrice(String cardHighPrice)
     {
-        TextView tv = (TextView) findViewById(R.id.badge_price_value);
-        tv.setText(getContext().getString(R.string.string_$) + yourPrice);
+        TextView tv = (TextView) findViewById(R.id.custom_view_price_high);
+        tv.setText(getContext().getString(R.string.highPrice) + " " + cardHighPrice);
     }
-
 
     /** Sets Card Cover in View from a bitmap */
     public void setCoverViewFromBitmap(Bitmap coverCard)
     {
         ImageView iv = (ImageView) findViewById(R.id.custom_view_card_cover);
         iv.setImageBitmap(coverCard);
-    }
-
-
-    /** Sets Card Rating in View */
-    public void setRating(String rating)
-    {
-        RatingBar rb = (RatingBar) findViewById(R.id.custom_view_rating);
-        rb.setRating(Float.parseFloat(rating));
     }
 }

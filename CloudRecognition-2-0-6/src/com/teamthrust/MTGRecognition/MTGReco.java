@@ -1272,17 +1272,17 @@ public class MTGReco extends Activity
                 mCardData = new Card();
 
                 mCardData.setTitle(jsonObject.getString("title"));
-                mCardData.setAuthor(jsonObject.getString("author"));
-                mCardData.setCardUrl(jsonObject.getString("cardurl"));
-                mCardData.setPriceList(jsonObject.getString("list price"));
-                mCardData.setPriceYour(jsonObject.getString("your price"));
-                mCardData.setRatingAvg(jsonObject.getString("average rating"));
-                mCardData.setRatingTotal(jsonObject.getString("# of ratings"));
+                mCardData.setSet(jsonObject.getString("set"));
+                
+                //mCardData.setPriceList(jsonObject.getString("list price"));
+                //mCardData.setPriceYour(jsonObject.getString("your price"));
+                //mCardData.setRatingAvg(jsonObject.getString("average rating"));
+                //mCardData.setRatingTotal(jsonObject.getString("# of ratings"));
 
                 StringBuilder tcgURL = new StringBuilder();
                 
                 StringTokenizer nameTokenizer = new StringTokenizer(mCardData.getTitle());
-                StringTokenizer setTokenizer = new StringTokenizer(mCardData.getAuthor());
+                StringTokenizer setTokenizer = new StringTokenizer(mCardData.getSet());
                 
                 String low, avg, high;
                 
@@ -1307,6 +1307,9 @@ public class MTGReco extends Activity
                 }                
                 
                 tcgURL.insert(0, "http://store.tcgplayer.com/magic/");
+                mCardData.setCardUrl(tcgURL.toString());
+                
+                System.out.println(tcgURL.toString());
                 
                 //Obtain the Doc of the given TCG Player page
                 try 
@@ -1314,8 +1317,11 @@ public class MTGReco extends Activity
     				Document doc = Jsoup.connect(tcgURL.toString()).get();
     				
     				low = doc.getElementsByClass("low").text();
+    				mCardData.setLowPrice(low);
     				avg = doc.getElementsByClass("avg").text();
+    				mCardData.setAvgPrice(avg);
     				high = doc.getElementsByClass("high").text();
+    				mCardData.setHighPrice(high);
                 } 
                 catch (IOException e) 
     			{
@@ -1476,11 +1482,11 @@ public class MTGReco extends Activity
     private void updateProductView(CardOverlayView productView, Card card)
     {
         productView.setCardTitle(card.getTitle());
-        productView.setCardPrice(card.getPriceList());
-        productView.setYourPrice(card.getPriceYour());
-        productView.setCardRatingCount(card.getRatingTotal());
-        productView.setRating(card.getRatingAvg());
-        productView.setCardAuthor(card.getAuthor());
+        productView.setCardSet(card.getSet());
+        //productView.setCardPrice(card.getPriceList());
+        productView.setCardLowPrice(card.getLowPrice());
+        productView.setCardAvgPrice(card.getAvgPrice());
+        productView.setCardHighPrice(card.getHighPrice());
         productView.setCoverViewFromBitmap(card.getThumb());
     }
 

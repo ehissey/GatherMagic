@@ -9,6 +9,9 @@
     <string name="button_start">Start</string>
     <string name="button_OK">OK</string>
     <string name="string_$">$</string>
+    <string name="lowPrice">Low Price:</string>
+    <string name="avgPrice">Average Price:</string>
+    <string name="highPrice">High Price:</string>
     <string name="string_openParentheses">(</string>
     <string name="string_closeParentheses">)</string>
     <string name="string_ratings">ratings</string>
