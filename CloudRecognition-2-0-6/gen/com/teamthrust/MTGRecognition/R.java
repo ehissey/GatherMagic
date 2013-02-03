@@ -50,9 +50,11 @@ public final class R {
         public static final int rating_full=0x7f02000b;
         public static final int splash_background_tile=0x7f02000c;
         public static final int tiled_background=0x7f02000d;
+        public static final int title=0x7f02000e;
+        public static final int title_black=0x7f02000f;
+        public static final int title_white=0x7f020010;
     }
     public static final class id {
-        public static final int activity_splash_title=0x7f08000f;
         public static final int camera_overlay_layout=0x7f080000;
         public static final int custom_view_card_background=0x7f080004;
         public static final int custom_view_card_cover=0x7f080007;
@@ -65,12 +67,10 @@ public final class R {
         public static final int custom_view_set=0x7f08000a;
         public static final int custom_view_title=0x7f080009;
         public static final int custom_view_touch_for_more=0x7f08000e;
+        public static final int imageView1=0x7f08000f;
         public static final int loading_layout=0x7f080001;
         public static final int overlay_close_button=0x7f080002;
         public static final int overlay_status=0x7f080003;
-        public static final int splash_screen_subtitle=0x7f080010;
-        public static final int vuforia_logo=0x7f080012;
-        public static final int vuforia_splash_logo=0x7f080011;
     }
     public static final class layout {
         public static final int bitmap_layout=0x7f030000;
