@@ -1289,7 +1289,7 @@ public class MTGReco extends Activity
                 while (setTokenizer.hasMoreTokens())
                 {
                 	tcgURL.append(setTokenizer.nextToken());
-                	if(nameTokenizer.hasMoreTokens())
+                	if(setTokenizer.hasMoreTokens())
                 	{
                 		tcgURL.append("-");
                 	}
