@@ -50,24 +50,24 @@ public final class R {
     public static final class id {
         public static final int about_text=0x7f080000;
         public static final int activity_splash_title=0x7f080013;
-        public static final int badge_price_title=0x7f08000d;
-        public static final int badge_price_value=0x7f08000e;
+        public static final int badge_price_title=0x7f080011;
+        public static final int badge_price_value=0x7f080012;
         public static final int button_start=0x7f080001;
-        public static final int camera_overlay_layout=0x7f08000f;
-        public static final int custom_view_author=0x7f080008;
-        public static final int custom_view_book_background=0x7f080002;
-        public static final int custom_view_book_cover=0x7f080005;
-        public static final int custom_view_book_horizontal=0x7f080004;
-        public static final int custom_view_book_text_data=0x7f080006;
-        public static final int custom_view_information_container=0x7f080003;
-        public static final int custom_view_price_old=0x7f08000b;
-        public static final int custom_view_rating=0x7f080009;
-        public static final int custom_view_rating_text=0x7f08000a;
-        public static final int custom_view_title=0x7f080007;
-        public static final int custom_view_touch_for_more=0x7f08000c;
-        public static final int loading_layout=0x7f080010;
-        public static final int overlay_close_button=0x7f080011;
-        public static final int overlay_status=0x7f080012;
+        public static final int camera_overlay_layout=0x7f080002;
+        public static final int custom_view_author=0x7f08000c;
+        public static final int custom_view_card_background=0x7f080006;
+        public static final int custom_view_card_cover=0x7f080009;
+        public static final int custom_view_card_horizontal=0x7f080008;
+        public static final int custom_view_card_text_data=0x7f08000a;
+        public static final int custom_view_information_container=0x7f080007;
+        public static final int custom_view_price_old=0x7f08000f;
+        public static final int custom_view_rating=0x7f08000d;
+        public static final int custom_view_rating_text=0x7f08000e;
+        public static final int custom_view_title=0x7f08000b;
+        public static final int custom_view_touch_for_more=0x7f080010;
+        public static final int loading_layout=0x7f080003;
+        public static final int overlay_close_button=0x7f080004;
+        public static final int overlay_status=0x7f080005;
         public static final int splash_screen_subtitle=0x7f080014;
         public static final int vuforia_logo=0x7f080016;
         public static final int vuforia_splash_logo=0x7f080015;
@@ -75,8 +75,8 @@ public final class R {
     public static final class layout {
         public static final int about_screen=0x7f030000;
         public static final int bitmap_layout=0x7f030001;
-        public static final int book_data_layout=0x7f030002;
-        public static final int camera_overlay=0x7f030003;
+        public static final int camera_overlay=0x7f030002;
+        public static final int card_data_layout=0x7f030003;
         public static final int splash_screen=0x7f030004;
     }
     public static final class string {
@@ -103,10 +103,10 @@ public final class R {
         public static final int activity_splash_subtitle=0x7f060002;
         public static final int activity_splash_title=0x7f060001;
         public static final int app_name=0x7f060000;
-        public static final int book_data_touch_for_more=0x7f060017;
-        public static final int book_data_your_price=0x7f06000e;
         public static final int button_OK=0x7f060006;
         public static final int button_start=0x7f060005;
+        public static final int card_data_touch_for_more=0x7f060017;
+        public static final int card_data_your_price=0x7f06000e;
         public static final int content_desc_vuforia_background=0x7f06000d;
         public static final int content_desc_vuforia_logo=0x7f06000c;
         public static final int content_description_background=0x7f060016;

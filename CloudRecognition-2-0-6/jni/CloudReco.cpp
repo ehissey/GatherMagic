@@ -63,7 +63,7 @@ class CloudReco_UpdateCallback : public QCAR::UpdateCallback
                         {
                             // If the target has changed then regenerate the texture
                             // Cleaning this value indicates that the product Texture needs to be generated
-                            // again in Java with the new Book data for the new target
+                            // again in Java with the new Card data for the new target
                             deleteCurrentProductTexture = true;
 
                             // Starts the loading state for the product
@@ -254,7 +254,7 @@ Java_com_qualcomm_QCARSamples_CloudRecognition_CloudRecoRenderer_renderFrame(JNI
     }
 
     // If the render state indicates that the texture is generated it generates
-    // the OpenGL texture for start drawing the plane with the book data
+    // the OpenGL texture for start drawing the plane with the card data
     if (renderState == RS_TEXTURE_GENERATED)
     {
         generateProductTextureInOpenGL();
@@ -286,7 +286,7 @@ Java_com_qualcomm_QCARSamples_CloudRecognition_CloudRecoRenderer_renderFrame(JNI
         QCAR::ImageTargetResult *imageResult = (QCAR::ImageTargetResult *)trackableResult;
         targetSize = imageResult->getTrackable().getSize();
 
-        // Renders the Augmentation View with the 3D Book data Panel
+        // Renders the Augmentation View with the 3D Card data Panel
         renderAugmentation(trackableResult);
 
     }
@@ -1064,7 +1064,7 @@ void
 startTransitionTo2D()
 {
 
-    // Initialize the animation values when the book data
+    // Initialize the animation values when the card data
     // is displayed normally
     if (renderState == RS_NORMAL && trackingStarted)
     {

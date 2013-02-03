@@ -57,15 +57,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qualcomm.QCAR.QCAR;
-import com.qualcomm.QCARSamples.CloudRecognition.model.Book;
+import com.qualcomm.QCARSamples.CloudRecognition.model.Card;
 import com.qualcomm.QCARSamples.CloudRecognition.utils.DebugLog;
-import com.qualcomm.QCARSamples.CloudRecognition.view.BookOverlayView;
+import com.qualcomm.QCARSamples.CloudRecognition.view.CardOverlayView;
 
 
 /** The main activity for the CloudReco sample. */
 public class CloudReco extends Activity
 {
-    // Defines the Server URL to get the books data
+    // Defines the Server URL to get the cards data
     private static final String mServerURL = "http://www.cs.purdue.edu/homes/ehissey/mtgJson/";
 
     // Different screen orientations supported by the CloudReco system.
@@ -96,8 +96,8 @@ public class CloudReco extends Activity
     private static final String NATIVE_LIB_QCAR = "QCAR";
 
     // Stores the current status of the target ( if is being displayed or not )
-    private static final int BOOKINFO_NOT_DISPLAYED = 0;
-    private static final int BOOKINFO_IS_DISPLAYED = 1;
+    private static final int CARDINFO_NOT_DISPLAYED = 0;
+    private static final int CARDINFO_IS_DISPLAYED = 1;
 
     // These codes match the ones defined in TargetFinder.h
     static final int INIT_SUCCESS = 2;
@@ -123,22 +123,22 @@ public class CloudReco extends Activity
     static final int SHOW_LOADING_DIALOG = 1;
 
     // Augmented content status
-    private int mBookInfoStatus = BOOKINFO_NOT_DISPLAYED;
+    private int mCardInfoStatus = CARDINFO_NOT_DISPLAYED;
 
     // Status Bar Text
     private String mStatusBarText;
 
-    // Active Book Data
-    private Book mBookData;
-    private String mBookJSONUrl;
+    // Active Card Data
+    private Card mCardData;
+    private String mCardJSONUrl;
     private View mLoadingDialogContainer;
-    private Texture mBookDataTexture;
+    private Texture mCardDataTexture;
 
-    // Indicates if the app is currently loading the book data
-    private boolean mIsLoadingBookData = false;
+    // Indicates if the app is currently loading the card data
+    private boolean mIsLoadingCardData = false;
 
-    // AsyncTask to get book data from a json object
-    private GetBookDataTask mGetBookDataTask;
+    // AsyncTask to get card data from a json object
+    private GetCardDataTask mGetCardDataTask;
 
     // Our OpenGL view:
     private QCARSampleGLView mGlView;
@@ -190,7 +190,7 @@ public class CloudReco extends Activity
     // Detects the double tap gesture for launching the Camera menu
     private GestureDetector mGestureDetector;
 
-    // size of the Texture to be generated with the book data
+    // size of the Texture to be generated with the card data
     private static int mTextureSize = 768;
     
     /** Static initializer block to load native libraries on start-up. */
@@ -623,7 +623,7 @@ public class CloudReco extends Activity
             mGlView.onResume();
         }
 
-        mBookInfoStatus = BOOKINFO_NOT_DISPLAYED;
+        mCardInfoStatus = CARDINFO_NOT_DISPLAYED;
 
         // By default the 2D Overlay is hidden
         hide2DOverlay();
@@ -1003,17 +1003,17 @@ public class CloudReco extends Activity
             public void onClick(View v)
             {
                 // Updates application status
-                mBookInfoStatus = BOOKINFO_NOT_DISPLAYED;
+                mCardInfoStatus = CARDINFO_NOT_DISPLAYED;
 
                 loadingDialogHandler.sendEmptyMessage(HIDE_LOADING_DIALOG);
 
-                // Checks if the app is currently loading a book data
-                if (mIsLoadingBookData)
+                // Checks if the app is currently loading a card data
+                if (mIsLoadingCardData)
                 {
 
                     // Cancels the AsyncTask
-                    mGetBookDataTask.cancel(true);
-                    mIsLoadingBookData = false;
+                    mGetCardDataTask.cancel(true);
+                    mIsLoadingCardData = false;
 
                     // Cleans the Target Tracker Id
                     cleanTargetTrackedId();
@@ -1059,15 +1059,15 @@ public class CloudReco extends Activity
     }
 
 
-    /** Starts the WebView with the Book Extra Data */
+    /** Starts the WebView with the Card Extra Data */
     public void startWebView(int value)
     {
-        // Checks that we have a valid book data
-        if (mBookData != null)
+        // Checks that we have a valid card data
+        if (mCardData != null)
         {
-            // Starts an Intent to open the book URL
+            // Starts an Intent to open the card URL
             Intent viewIntent = new Intent("android.intent.action.VIEW",
-                    Uri.parse(mBookData.getBookUrl()));
+                    Uri.parse(mCardData.getCardUrl()));
 
             startActivity(viewIntent);
         }
@@ -1167,46 +1167,48 @@ public class CloudReco extends Activity
 
 
     /**
-     * Generates a texture for the book data fecthing the book info from
-     * the specified book URL
+     * Generates a texture for the card data fecthing the card info from
+     * the specified card URL
      */
-    public void createProductTexture(String bookJSONUrl)
+    public void createProductTexture(String cardJSONUrl)
     {
-        // gets book url from parameters
-        mBookJSONUrl = bookJSONUrl.trim();
+        // gets card url from parameters
+        mCardJSONUrl = cardJSONUrl.trim();
 
         // Cleans old texture reference if necessary
-        if (mBookDataTexture != null)
+        if (mCardDataTexture != null)
         {
-            mBookDataTexture = null;
+            mCardDataTexture = null;
 
             System.gc();
         }
 
-        // Searches for the book data in an AsyncTask
-        mGetBookDataTask = new GetBookDataTask();
-        mGetBookDataTask.execute();
+        // Searches for the card data in an AsyncTask
+        mGetCardDataTask = new GetCardDataTask();
+        mGetCardDataTask.execute();
     }
 
 
-    /** Gets the book data from a JSON Object */
-    private class GetBookDataTask extends AsyncTask<Void, Void, Void>
+    /** Gets the card data from a JSON Object */
+    private class GetCardDataTask extends AsyncTask<Void, Void, Void>
     {
-        private String mBookDataJSONFullUrl;
+        private String mCardDataJSONFullUrl;
         private static final String CHARSET = "UTF-8";
 
 
         protected void onPreExecute()
         {
-            mIsLoadingBookData = true;
+            mIsLoadingCardData = true;
 
-            // Initialize the current book full url to search
+            // Initialize the current card full url to search
             // for the data
             StringBuilder sBuilder = new StringBuilder();
             sBuilder.append(mServerURL);
-            sBuilder.append(mBookJSONUrl);
+            sBuilder.append(mCardJSONUrl);
 
-            mBookDataJSONFullUrl = sBuilder.toString();
+            mCardDataJSONFullUrl = sBuilder.toString();
+            
+            System.out.println(sBuilder.toString());
 
             // Shows the loading dialog
             loadingDialogHandler.sendEmptyMessage(SHOW_LOADING_DIALOG);
@@ -1219,21 +1221,21 @@ public class CloudReco extends Activity
 
             try
             {
-                // Connects to the Server to get the book data
-                URL url = new URL(mBookDataJSONFullUrl);
+                // Connects to the Server to get the card data
+                URL url = new URL(mCardDataJSONFullUrl);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestProperty("Accept-Charset", CHARSET);
                 connection.connect();
 
                 int status = connection.getResponseCode();
 
-                // Checks that the book JSON url exists and connection
+                // Checks that the card JSON url exists and connection
                 // has been successful
                 if (status != HttpURLConnection.HTTP_OK)
                 {
-                    // Cleans book data variables
-                    mBookData = null;
-                    mBookInfoStatus = BOOKINFO_NOT_DISPLAYED;
+                    // Cleans card data variables
+                    mCardData = null;
+                    mCardInfoStatus = CARDINFO_NOT_DISPLAYED;
 
                     // Hides loading dialog
                     loadingDialogHandler.sendEmptyMessage(HIDE_LOADING_DIALOG);
@@ -1253,27 +1255,27 @@ public class CloudReco extends Activity
                     builder.append(line);
                 }
 
-                // Cleans any old reference to mBookData
-                if (mBookData != null)
+                // Cleans any old reference to mCardData
+                if (mCardData != null)
                 {
-                    mBookData = null;
+                    mCardData = null;
 
                 }
 
                 JSONObject jsonObject = new JSONObject(builder.toString());
 
-                // Generates a new Book Object with the JSON object data
-                mBookData = new Book();
+                // Generates a new Card Object with the JSON object data
+                mCardData = new Card();
 
-                mBookData.setTitle(jsonObject.getString("title"));
-                mBookData.setAuthor(jsonObject.getString("author"));
-                mBookData.setBookUrl(jsonObject.getString("bookurl"));
-                mBookData.setPriceList(jsonObject.getString("list price"));
-                mBookData.setPriceYour(jsonObject.getString("your price"));
-                mBookData.setRatingAvg(jsonObject.getString("average rating"));
-                mBookData.setRatingTotal(jsonObject.getString("# of ratings"));
+                mCardData.setTitle(jsonObject.getString("title"));
+                mCardData.setAuthor(jsonObject.getString("author"));
+                mCardData.setCardUrl(jsonObject.getString("cardurl"));
+                mCardData.setPriceList(jsonObject.getString("list price"));
+                mCardData.setPriceYour(jsonObject.getString("your price"));
+                mCardData.setRatingAvg(jsonObject.getString("average rating"));
+                mCardData.setRatingTotal(jsonObject.getString("# of ratings"));
 
-                // Gets the book thumb image
+                // Gets the card thumb image
                 byte[] thumb = downloadImage(jsonObject.getString("thumburl"));
 
                 if (thumb != null)
@@ -1281,12 +1283,12 @@ public class CloudReco extends Activity
 
                     Bitmap bitmap = BitmapFactory.decodeByteArray(thumb, 0,
                             thumb.length);
-                    mBookData.setThumb(bitmap);
+                    mCardData.setThumb(bitmap);
                 }
             }
             catch (Exception e)
             {
-                DebugLog.LOGD("Couldn't get books. e: " + e);
+                DebugLog.LOGD("Couldn't get cards. e: " + e);
             }
             finally
             {
@@ -1305,14 +1307,14 @@ public class CloudReco extends Activity
 
         protected void onPostExecute(Void result)
         {
-            if (mBookData != null)
+            if (mCardData != null)
             {
-                // Generates a View to display the book data
-                BookOverlayView productView = new BookOverlayView(
+                // Generates a View to display the card data
+                CardOverlayView productView = new CardOverlayView(
                         CloudReco.this);
 
                 // Updates the view used as a 3d Texture
-                updateProductView(productView, mBookData);
+                updateProductView(productView, mCardData);
 
                 // Sets the layout params
                 productView.setLayoutParams(new LayoutParams(
@@ -1358,7 +1360,7 @@ public class CloudReco extends Activity
                 System.gc();   
                 
                 // Generates the Texture from the int buffer
-                mBookDataTexture = Texture.loadTextureFromIntBuffer(data,
+                mCardDataTexture = Texture.loadTextureFromIntBuffer(data,
                                         width, height);
 
                 // Clear the int buffer as it is no longer needed
@@ -1368,7 +1370,7 @@ public class CloudReco extends Activity
                 // Hides the loading dialog from a UI thread
                 loadingDialogHandler.sendEmptyMessage(HIDE_LOADING_DIALOG);
 
-                mIsLoadingBookData = false;
+                mIsLoadingCardData = false;
 
                 productTextureIsCreated();
             }
@@ -1415,23 +1417,23 @@ public class CloudReco extends Activity
     }
 
 
-    /** Returns the current Book Data Texture */
+    /** Returns the current Card Data Texture */
     private Texture getProductTexture()
     {
-        return mBookDataTexture;
+        return mCardDataTexture;
     }
 
 
-    /** Updates a BookOverlayView with the Book data specified in parameters */
-    private void updateProductView(BookOverlayView productView, Book book)
+    /** Updates a CardOverlayView with the Card data specified in parameters */
+    private void updateProductView(CardOverlayView productView, Card card)
     {
-        productView.setBookTitle(book.getTitle());
-        productView.setBookPrice(book.getPriceList());
-        productView.setYourPrice(book.getPriceYour());
-        productView.setBookRatingCount(book.getRatingTotal());
-        productView.setRating(book.getRatingAvg());
-        productView.setBookAuthor(book.getAuthor());
-        productView.setCoverViewFromBitmap(book.getThumb());
+        productView.setCardTitle(card.getTitle());
+        productView.setCardPrice(card.getPriceList());
+        productView.setYourPrice(card.getPriceYour());
+        productView.setCardRatingCount(card.getRatingTotal());
+        productView.setRating(card.getRatingAvg());
+        productView.setCardAuthor(card.getAuthor());
+        productView.setCoverViewFromBitmap(card.getThumb());
     }
 
 
@@ -1442,7 +1444,7 @@ public class CloudReco extends Activity
     public void enterContentMode()
     {
         // Updates state variables
-        mBookInfoStatus = BOOKINFO_IS_DISPLAYED;
+        mCardInfoStatus = CARDINFO_IS_DISPLAYED;
 
         // Shows the 2D Overlay
         show2DOverlay();
@@ -1463,7 +1465,7 @@ public class CloudReco extends Activity
     }
 
 
-    /** Displays the 2D Book Overlay */
+    /** Displays the 2D Card Overlay */
     public void show2DOverlay()
     {
         // Sends the Message to the Handler in the UI thread
@@ -1471,7 +1473,7 @@ public class CloudReco extends Activity
     }
 
 
-    /** Hides the 2D Book Overlay */
+    /** Hides the 2D Card Overlay */
     public void hide2DOverlay()
     {
         // Sends the Message to the Handler in the UI thread
@@ -1540,8 +1542,8 @@ public class CloudReco extends Activity
         public boolean onSingleTapUp(MotionEvent e)
         {
 
-            // If the book info is not displayed it performs an Autofocus
-            if (mBookInfoStatus == BOOKINFO_NOT_DISPLAYED)
+            // If the card info is not displayed it performs an Autofocus
+            if (mCardInfoStatus == CARDINFO_NOT_DISPLAYED)
             {
                 // Calls the Autofocus Native Method
                 autofocus();
@@ -1550,9 +1552,9 @@ public class CloudReco extends Activity
                 // autofocus
                 mContAutofocus = false;
 
-                // If the book info is displayed it shows the book data web view
+                // If the card info is displayed it shows the card data web view
             }
-            else if (mBookInfoStatus == BOOKINFO_IS_DISPLAYED)
+            else if (mCardInfoStatus == CARDINFO_IS_DISPLAYED)
             {
 
                 float x = e.getX(0);

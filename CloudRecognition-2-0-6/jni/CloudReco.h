@@ -53,7 +53,7 @@ extern "C"
 #endif
 
 // ----------------------------------------------------------------------------
-// 3d Plane Data for Displaying Book Overlay texture
+// 3d Plane Data for Displaying Card Overlay texture
 // ----------------------------------------------------------------------------
 static const float planeVertices[] =
 { -0.5, -0.5, 0.0, 0.5, -0.5, 0.0, 0.5, 0.5, 0.0, -0.5, 0.5, 0.0, };
@@ -76,7 +76,7 @@ QCAR::Matrix44F inverseProjMatrix;
 // ----------------------------------------------------------------------------
 // Application Render States
 // ----------------------------------------------------------------------------
-// Texture is Generated and Target is Acquired - Rendering Book Data
+// Texture is Generated and Target is Acquired - Rendering Card Data
 static int RS_NORMAL = 0;
 
 // Target has been lost - Rendering transition to 2D Overlay
@@ -85,10 +85,10 @@ static int RS_TRANSITION_TO_2D = 1;
 // Target has been reacquired - Rendering transition to 3D
 static int RS_TRANSITION_TO_3D = 2;
 
-// New Target has been found - Loading book data and generating OpenGL Textures
+// New Target has been found - Loading card data and generating OpenGL Textures
 static int RS_LOADING = 3;
 
-// Texture with book data has been generated in Java - Ready to be generated
+// Texture with card data has been generated in Java - Ready to be generated
 // in OpenGL in the renderFrame thread
 static int RS_TEXTURE_GENERATED = 4;
 
@@ -127,7 +127,7 @@ QCAR::Matrix34F pose;
 QCAR::Vec2F targetSize;
 
 // ----------------------------------------------------------------------------
-// Info About the current tracked book
+// Info About the current tracked card
 // Buffers for holding the unique ID of the last matched target and its 
 // associated meta data
 // ----------------------------------------------------------------------------
@@ -137,7 +137,7 @@ char targetMetadata[CONTENT_MAX];
 pthread_mutex_t lastTargetIdMutex;
 
 // ----------------------------------------------------------------------------
-// Texture used to draw the plane with the book data
+// Texture used to draw the plane with the card data
 // ----------------------------------------------------------------------------
 Texture *productTexture = 0;
 
