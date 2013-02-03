@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.qualcomm.QCARSamples.CloudRecognition"
+      package="com.teamthrust.MTGRecognition"
       android:versionCode="200"
       android:versionName="2.0" >
 
@@ -75,7 +75,7 @@
 
         <!-- Splash Screen Activity -->
         <activity
-            android:name=".CloudRecoSplashScreen"
+            android:name="com.teamthrust.MTGRecognition.MTGRecoSplashScreen"
             android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize"
             android:label="@string/app_name"
             android:noHistory="true" >
@@ -109,7 +109,7 @@
           Activity.setRequestedOrientation().
         -->        
         <activity
-            android:name=".CloudReco"
+            android:name="com.teamthrust.MTGRecognition.MTGReco"
             android:configChanges="orientation|keyboardHidden|screenSize|smallestScreenSize"
             android:finishOnTaskLaunch="true"
             android:label="@string/app_name" >

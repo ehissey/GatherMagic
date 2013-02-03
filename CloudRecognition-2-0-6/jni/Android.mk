@@ -39,7 +39,7 @@ include $(CLEAR_VARS)
 # prefix and suffix to the corresponding generated file. In other words,
 # a shared library module named 'foo' will generate 'libfoo.so'.
 
-LOCAL_MODULE := CloudReco
+LOCAL_MODULE := MTGReco
 
 # This sample always uses OpenGL ES 2.0.
 
@@ -76,7 +76,7 @@ LOCAL_SHARED_LIBRARIES := QCAR-prebuilt
 # compute dependencies automatically for you; just list the source files
 # that will be passed directly to a compiler, and you should be good. 	
 	
-LOCAL_SRC_FILES := Transition3Dto2D.cpp CloudReco.cpp SampleUtils.cpp Texture.cpp SampleMath.cpp 
+LOCAL_SRC_FILES := Transition3Dto2D.cpp MTGReco.cpp SampleUtils.cpp Texture.cpp SampleMath.cpp 
 
 # By default, ARM target binaries will be generated in 'thumb' mode, where
 # each instruction is 16-bit wide. You can set this variable to 'arm' to
