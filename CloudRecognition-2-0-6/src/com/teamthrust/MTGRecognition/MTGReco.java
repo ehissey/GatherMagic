@@ -15,6 +15,7 @@ package com.teamthrust.MTGRecognition;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
@@ -22,9 +23,12 @@ import java.lang.reflect.Field;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.StringTokenizer;
 
 import org.apache.http.util.ByteArrayBuffer;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -1275,6 +1279,50 @@ public class MTGReco extends Activity
                 mCardData.setRatingAvg(jsonObject.getString("average rating"));
                 mCardData.setRatingTotal(jsonObject.getString("# of ratings"));
 
+                StringBuilder tcgURL = new StringBuilder();
+                
+                StringTokenizer nameTokenizer = new StringTokenizer(mCardData.getTitle());
+                StringTokenizer setTokenizer = new StringTokenizer(mCardData.getAuthor());
+                
+                String low, avg, high;
+                
+                while (setTokenizer.hasMoreTokens())
+                {
+                	tcgURL.append(setTokenizer.nextToken());
+                	if(nameTokenizer.hasMoreTokens())
+                	{
+                		tcgURL.append("-");
+                	}
+                }
+                
+                tcgURL.append("/");
+                
+                while (nameTokenizer.hasMoreTokens())
+                {
+                	tcgURL.append(nameTokenizer.nextToken());
+                	if(nameTokenizer.hasMoreTokens())
+                	{
+                		tcgURL.append("-");
+                	}
+                }                
+                
+                tcgURL.insert(0, "http://store.tcgplayer.com/magic/");
+                
+                //Obtain the Doc of the given TCG Player page
+                try 
+                {
+    				Document doc = Jsoup.connect(tcgURL.toString()).get();
+    				
+    				low = doc.getElementsByClass("low").text();
+    				avg = doc.getElementsByClass("avg").text();
+    				high = doc.getElementsByClass("high").text();
+                } 
+                catch (IOException e) 
+    			{
+    				//Catch any issues connecting to TCGPlayer
+    				DebugLog.LOGD("Problem connecting to page. e: " + e);
+    			}
+                
                 // Gets the card thumb image
                 byte[] thumb = downloadImage(jsonObject.getString("thumburl"));
 
